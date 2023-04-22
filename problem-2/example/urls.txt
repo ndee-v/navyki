@@ -3,3 +3,15 @@ https://www.ozon.ru/
 https://vk.com/
 https://yandex.ru/
 https://www.google.com/
+http://www.avito.ru/
+http://www.ozon.ru/
+http://vk.com/
+http://yandex.ru/
+http://www.google.com/
+http://www.bad-link.avito.ru/
+http://www.bad-link.ozon.ru/
+http://vk.cbad-link.om/
+http://yandbad-link.ex.ru/
+http://www.bad-link.google.com/
+http://www.ok.ru/
+http://www.okkkk.ru/
