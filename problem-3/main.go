@@ -8,21 +8,28 @@ import (
 	"time"
 )
 
+const (
+	// BucketSize - размер корзины, можно регулировать ограничитель запросов
+	BucketSize = 10
+	// FillFrequency - частота пополнения корзины, можно регулировать ограничитель запросов
+	FillFrequency = time.Second
+)
+
 func main() {
 	count := 100
 	ch := make(chan int, count)
-	bucketSize := 2
+
 	attempt := 0
-	tokenChan := make(chan struct{}, bucketSize)
+	tokenChan := make(chan struct{}, BucketSize)
 
 	// Горутина, которая пополняет корзину с токенами
 	go func() {
-		t := time.NewTicker(time.Second)
+		t := time.NewTicker(FillFrequency)
 		for {
 			select {
 			case <-t.C:
 				log.Println("[INFO] fill token bucket")
-				attempt = bucketSize
+				attempt = BucketSize
 				for attempt > 0 {
 					attempt--
 					select {
