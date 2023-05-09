@@ -10,7 +10,7 @@ import (
 
 const (
 	// BucketSize - размер корзины, можно регулировать ограничитель запросов
-	BucketSize = 10
+	BucketSize = 3
 	// FillFrequency - частота пополнения корзины, можно регулировать ограничитель запросов
 	FillFrequency = time.Second
 )
@@ -43,12 +43,15 @@ func main() {
 	}()
 
 	var wg sync.WaitGroup
+	// Добавил канал, чтобы не использовать WG, и чтобы программа завершилась отобразив все вызовы
+	syncChan := make(chan struct{})
 
 	// Горутина для чтения значений из канала
 	go func() {
 		for value := range ch {
 			fmt.Println(value)
 		}
+		syncChan <- struct{}{}
 	}()
 
 	// Горутины для записи значений в канал
@@ -63,6 +66,7 @@ func main() {
 
 	wg.Wait()
 	close(ch)
+	<-syncChan
 }
 
 func RPCCall() int {
